@@ -460,6 +460,30 @@
       padding: 8px 48px 24px;
     }
 
+    /* COMMERCIAL FOOTER BLOCK */
+    .footer-commercial {
+      width: 100%;
+      padding: 8px 48px 0;
+      text-align: right;
+    }
+
+    .footer-commercial-text {
+      font-size: 12px;
+      color: #5c5c5c;
+      margin-bottom: 4px;
+    }
+
+    .footer-commercial-logo {
+      height: 32px;
+      opacity: 0.9;
+      transition: opacity 0.2s ease;
+      display: inline-block;
+    }
+
+    .footer-commercial-logo:hover {
+      opacity: 1;
+    }
+
     /* RESPONSIVE */
     @media (max-width: 900px) {
       nav.nav-links {
@@ -536,6 +560,11 @@
         text-align: center;
       }
 
+      .footer-commercial {
+        text-align: center;
+        padding: 16px 20px 0;
+      }
+
       .copyright {
         text-align: center;
         padding: 16px 20px 32px;
@@ -551,7 +580,7 @@
     <div class="top-banner-inner">
       <span>
         <strong>Thinking of selling next year?</strong>
-        Sign a listing agreement by 12/31/2025 and receive a complimentary Matterport 3D tour. List anytime in 2026.
+        Sign up by 12/31/2025 and receive a complimentary Matterport 3D tour. List anytime in 2026.
         <a href="/promotions">Learn more</a>
       </span>
     </div>
@@ -594,7 +623,7 @@
       <div class="hero-content">
         <h1 class="hero-title">Make your move in Austin</h1>
         <div class="hero-subtitle">
-          Precision guidance for buying, selling, and investing across Austin.
+          Precision guidance for buying, selling, leasing, and investing across Austin.
         </div>
         <div class="hero-question">
           Ready to talk about your next move?
@@ -626,35 +655,36 @@
           <h3>Buy smart. Move with confidence.</h3>
           <p>
             Whether it’s your first home or your fifth, we’ll focus on the neighborhoods, floor plans,
-            and numbers that actually fit your life. No endless scrolling, no guessing on value—just a
-            clear path to the right place at the right time.
+            and numbers that actually fit your life. No endless scrolling — just data-backed insights that guide
+            you in the right direction.
           </p>
         </div>
 
         <div class="tab-panel" data-panel="sell">
           <h3>Sell with strategy, not hope.</h3>
           <p>
-            We’ll position your home so the right buyers compete for it—with pricing, presentation,
-            and marketing that support your next move, not just a quick sale. You’ll always know
-            where you stand and what your options are.
+            Marketing a property is more than listing it on the MLS. We proactively market your home
+            through video marketing, social media content creation, direct mail, email campaigns, and good
+            ole-fashioned word of mouth to our network of buyers and buyers’ agents — giving your property
+            the maximum exposure it deserves.
           </p>
         </div>
 
         <div class="tab-panel" data-panel="lease">
-          <h3>Leasing that still feels professional.</h3>
+          <h3>Lease with clarity, not chaos.</h3>
           <p>
-            Whether you’re locking in a lease before you buy or managing a property you already own,
-            we’ll help you make smart decisions on pricing, terms, and timing—so your lease supports
-            your bigger plan instead of working against it.
+            Whether you’re securing a place before buying or leasing out a property you own,
+            we’ll help you navigate pricing, timing, and terms so you can make confident decisions without
+            the guesswork.
           </p>
         </div>
 
         <div class="tab-panel" data-panel="invest">
           <h3>Invest with intention, not FOMO.</h3>
           <p>
-            From short-term rentals and furnished stays to long-term holds and new construction,
-            we’ll look at real numbers, real regulations, and real risk. You’ll see what’s possible
-            with your capital, timeline, and goals—and what isn’t.
+            From short-term rentals to long-term holds,
+            we’ll look at real numbers and evaluate the risk. You’ll see what’s possible
+            with your capital, timeline, and goals — and what isn’t.
           </p>
         </div>
       </div>
@@ -704,6 +734,16 @@
       </a>
     </div>
   </footer>
+
+  <!-- COMMERCIAL PROMO ROW -->
+  <div class="footer-commercial">
+    <div>
+      <div class="footer-commercial-text">Looking for commercial real estate?</div>
+      <a href="https://atxcre.com" target="_blank" rel="noopener noreferrer">
+        <img src="atxcre.png" alt="ATXCRE" class="footer-commercial-logo">
+      </a>
+    </div>
+  </div>
 
   <div class="copyright">
     © 2025 ATXREALESTATE.COM
