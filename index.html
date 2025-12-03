@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ATXREALESTATE.COM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ATXREALESTATE.COM — precision guidance for buying, selling, leasing, and investing in Austin real estate. Work directly with Michael Mechler, Broker Associate at Douglas Elliman.">
+
+  <!-- Font (swap to Gotham in production if you have the license) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --de-blue-black: #100B28;
+      --de-blue: #009CBD;
+      --de-gray: #323744;
+
+      --bg-light: #F5F5F7;
+      --text-main: #111827;
+      --text-soft: #4B5563;
+      --border-soft: #E5E7EB;
+
+      --radius-lg: 24px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text-main);
+      background: #ffffff;
+      scroll-behavior: smooth;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* TOP BANNER (Matterport promo) */
+    .top-banner {
+      width: 100%;
+      background: #111827;
+      color: #F9FAFB;
+      font-size: 13px;
+      padding: 8px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+    }
+
+    .top-banner-inner {
+      max-width: 1120px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-align: center;
+    }
+
+    .top-banner strong {
+      font-weight: 600;
+    }
+
+    .top-banner a {
+      color: #93C5FD;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+
+    .top-banner-close {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      color: #E5E7EB;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 2px 4px;
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      left: 0;
+      right: 0;
+      z-index: 30;
+      padding: 14px 0;
+      background: linear-gradient(to bottom, rgba(16, 11, 40, 0.94), rgba(16, 11, 40, 0.4), transparent);
+      backdrop-filter: blur(14px);
+      transition: background 0.25s ease-out, box-shadow 0.25s ease-out, transform 0.2s ease-out, top 0.2s ease-out;
+      top: 40px; /* updated dynamically based on banner height */
+    }
+
+    header.header--solid {
+      background: #ffffff;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Logo */
+    .logo-link img {
+      height: 60px;
+      width: auto;
+      display: block;
+      transition: height 0.2s ease-out;
+    }
+
+    @media (max-width: 900px) {
+      .logo-link img {
+        height: 44px;
+      }
+    }
+
+    nav.nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #E5E7EB;
+      font-weight: 500;
+    }
+
+    nav.nav-links a {
+      position: relative;
+      padding-bottom: 2px;
+      border: none;
+      background: none;
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      line-height: 1;
+    }
+
+    nav.nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: currentColor;
+      transition: width 0.18s ease-out;
+    }
+
+    nav.nav-links a:hover::after {
+      width: 100%;
+    }
+
+    header.header--solid nav.nav-links {
+      color: var(--de-gray);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.18s ease-out, color 0.18s ease-out, transform 0.18s ease-out, box-shadow 0.18s ease-out;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--de-blue-black) 0%, var(--de-blue) 100%);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    /* HERO WITH VIDEO BACKGROUND */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      color: #ffffff;
+      overflow: hidden;
+    }
+
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .hero-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.25) 40%, rgba(0, 0, 0, 0.75));
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-content {
+      padding: 130px 0 90px;
+      max-width: 760px;
+      margin: 0 auto;
+      animation: fadeInUp 0.7s ease-out both;
+    }
+
+    .hero-title {
+      font-size: clamp(40px, 6vw, 56px);
+      line-height: 1.08;
+      letter-spacing: 0.02em;
+      margin: 0 0 14px;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      font-weight: 500;
+      color: #E5E7EB;
+      margin-bottom: 26px;
+    }
+
+    .hero-question {
+      font-size: 17px;
+      font-weight: 500;
+      margin-bottom: 18px;
+      color: #F9FAFB;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* GENERIC SECTION SPACING */
+    section {
+      padding: 80px 0;
+    }
+
+    /* SERVICES / TABS SECTION */
+    #services {
+      background: #ffffff;
+    }
+
+    .services-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .services-header h2 {
+      font-size: 28px;
+      margin: 0 0 8px;
+    }
+
+    .services-header p {
+      font-size: 15px;
+      color: var(--text-soft);
+      margin: 0;
+    }
+
+    .tabs {
+      display: flex;
+      border-radius: 999px;
+      background: #F3F4F6;
+      padding: 4px;
+      margin: 0 auto 28px;
+      max-width: 640px;
+    }
+
+    .tab-button {
+      flex: 1;
+      text-align: center;
+      border-radius: 999px;
+      padding: 10px 12px;
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      color: var(--de-gray);
+      transition: background 0.16s ease-out, color 0.16s ease-out, box-shadow 0.16s ease-out;
+    }
+
+    .tab-button.active {
+      background: var(--de-blue-black);
+      color: #ffffff;
+      box-shadow: 0 10px 25px rgba(16, 11, 40, 0.35);
+    }
+
+    .tab-panels {
+      max-width: 780px;
+      margin: 0 auto 40px;
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeInUp 0.4s ease-out;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .tab-panel h3 {
+      font-size: 24px;
+      margin: 0 0 10px;
+    }
+
+    .tab-panel p {
+      font-size: 16px;
+      color: var(--text-soft);
+      line-height: 1.9;
+      margin: 0;
+    }
+
+    /* CTA BLOCK AFTER TABS */
+    .cta-after-tabs {
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .cta-after-tabs h3 {
+      font-size: 24px;
+      margin: 0 0 16px;
+    }
+
+    /* FOOTER TEMPLATE (standardized) */
+    footer {
+      background: #ffffff;
+      padding: 24px 48px;
+      border-top: 1px solid #e8e8e8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      height: 48px;
+    }
+
+    .footer-platform {
+      font-size: 12px;
+      color: #5c5c5c;
+      margin-bottom: 4px;
+    }
+
+    .footer-text-bottom {
+      font-size: 12px;
+      color: #5c5c5c;
+    }
+
+    .footer-text-desktop {
+      display: inline-block;
+    }
+
+    .footer-text-mobile {
+      display: none;
+    }
+
+    .footer-links {
+      text-align: right;
+    }
+
+    .footer-links a {
+      display: block;
+      font-size: 12px;
+      color: #6b7280;
+      text-decoration: none;
+      margin-bottom: 4px;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    .copyright {
+      text-align: left;
+      font-size: 12px;
+      color: #7a7a7a;
+      width: 100%;
+      padding: 8px 48px 24px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav.nav-links {
+        display: none;
+      }
+
+      .hero-content {
+        padding-top: 120px;
+        padding-bottom: 80px;
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .hero-title {
+        font-size: 34px;
+      }
+
+      .tabs {
+        flex-wrap: wrap;
+        gap: 6px;
+        border-radius: 18px;
+      }
+
+      .tab-button {
+        flex: 1 1 calc(50% - 6px);
+        font-size: 12px;
+        padding: 9px 8px;
+      }
+
+      section {
+        padding: 64px 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 12px 20px;
+      }
+
+      .services-header h2 {
+        font-size: 24px;
+      }
+
+      .cta-after-tabs h3 {
+        font-size: 22px;
+      }
+
+      /* Mobile footer behavior */
+      footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
+        padding: 24px 20px;
+      }
+
+      .footer-left {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+      }
+
+      .footer-text-desktop {
+        display: none;
+      }
+
+      .footer-text-mobile {
+        display: inline-block;
+        line-height: 1.4;
+      }
+
+      .footer-links {
+        text-align: center;
+      }
+
+      .copyright {
+        text-align: center;
+        padding: 16px 20px 32px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP BANNER -->
+  <div class="top-banner" id="top-banner">
+    <div class="top-banner-inner">
+      <span>
+        <strong>Thinking of selling next year?</strong>
+        Sign a listing agreement by 12/31/2025 and receive a complimentary Matterport 3D tour. List anytime in 2026.
+        <a href="/promotions">Learn more</a>
+      </span>
+    </div>
+    <button class="top-banner-close" aria-label="Dismiss promotion" onclick="dismissBanner()">×</button>
+  </div>
+
+  <!-- HEADER -->
+  <header id="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <div class="nav-left">
+          <a href="#hero" class="logo-link" aria-label="ATXRealEstate.com">
+            <img src="white-atx-logo.png" alt="ATXRealEstate.com logo">
+          </a>
+        </div>
+
+        <nav class="nav-links">
+          <a href="#services" data-tab-target="buy">Buy</a>
+          <a href="#services" data-tab-target="sell">Sell</a>
+          <a href="#services" data-tab-target="lease">Lease</a>
+          <a href="#services" data-tab-target="invest">Invest</a>
+          <a href="/financing">Financing</a>
+        </nav>
+
+        <div class="nav-right">
+          <!-- Click-to-call button -->
+          <a href="tel:+15129372696" class="btn btn-primary">CALL (512) YES-2-OWN</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO WITH VIDEO -->
+  <section id="hero">
+    <div class="hero-media">
+      <video src="austin-skyline.mp4" autoplay muted loop playsinline></video>
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <h1 class="hero-title">Make your move in Austin</h1>
+        <div class="hero-subtitle">
+          Precision guidance for buying, selling, and investing across Austin.
+        </div>
+        <div class="hero-question">
+          Ready to talk about your next move?
+        </div>
+        <div class="hero-cta-row">
+          <a href="sms:+15129372696" class="btn btn-primary">Text a Human</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES / TABS -->
+  <section id="services">
+    <div class="container">
+      <div class="services-header">
+        <h2>How can I help you today?</h2>
+        <p>Select an area to learn how we can work together.</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-button active" data-tab="buy">Buy</button>
+        <button class="tab-button" data-tab="sell">Sell</button>
+        <button class="tab-button" data-tab="lease">Lease</button>
+        <button class="tab-button" data-tab="invest">Invest</button>
+      </div>
+
+      <div class="tab-panels">
+        <div class="tab-panel active" data-panel="buy">
+          <h3>Buy smart. Move with confidence.</h3>
+          <p>
+            Whether it’s your first home or your fifth, we’ll focus on the neighborhoods, floor plans,
+            and numbers that actually fit your life. No endless scrolling, no guessing on value—just a
+            clear path to the right place at the right time.
+          </p>
+        </div>
+
+        <div class="tab-panel" data-panel="sell">
+          <h3>Sell with strategy, not hope.</h3>
+          <p>
+            We’ll position your home so the right buyers compete for it—with pricing, presentation,
+            and marketing that support your next move, not just a quick sale. You’ll always know
+            where you stand and what your options are.
+          </p>
+        </div>
+
+        <div class="tab-panel" data-panel="lease">
+          <h3>Leasing that still feels professional.</h3>
+          <p>
+            Whether you’re locking in a lease before you buy or managing a property you already own,
+            we’ll help you make smart decisions on pricing, terms, and timing—so your lease supports
+            your bigger plan instead of working against it.
+          </p>
+        </div>
+
+        <div class="tab-panel" data-panel="invest">
+          <h3>Invest with intention, not FOMO.</h3>
+          <p>
+            From short-term rentals and furnished stays to long-term holds and new construction,
+            we’ll look at real numbers, real regulations, and real risk. You’ll see what’s possible
+            with your capital, timeline, and goals—and what isn’t.
+          </p>
+        </div>
+      </div>
+
+      <!-- CTA AFTER TABS / CONTACT ANCHOR -->
+      <div class="cta-after-tabs" id="contact">
+        <h3>Let’s talk about what you’re trying to accomplish.</h3>
+        <a
+          class="btn btn-primary"
+          href="mailto:mechler@atxrealestate.com?subject=I'd%20like%20to%20start%20my%20personalized%20real%20estate%20plan&body=I'm%20looking%20to%20(buy/sell/lease/invest):%0AIdeal%20timeline:%0ABudget/price%20range:%0ANeighborhoods/areas%20I'm%20considering:%0AAny%20specific%20questions%20or%20details:"
+        >
+          Start your personalized plan
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER (standard template) -->
+  <footer>
+    <div class="footer-left">
+      <!-- Douglas Elliman logo -->
+      <img src="douglas-elliman.png" alt="Douglas Elliman Real Estate" class="footer-logo">
+
+      <div>
+        <div class="footer-platform">
+          ATXREALESTATE.COM is owned and operated by Michael Mechler, Broker Associate
+        </div>
+        <!-- desktop version of address -->
+        <div class="footer-text-bottom footer-text-desktop">
+          Douglas Elliman Real Estate · 1717 W 6th Street, Suite 190, Austin, TX 78703
+        </div>
+        <!-- mobile stacked version of address -->
+        <div class="footer-text-bottom footer-text-mobile">
+          Douglas Elliman Real Estate<br>
+          1717 W 6th Street, Suite 190<br>
+          Austin, TX 78703
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <a href="/information-about-brokerage-services.pdf" target="_blank" rel="noopener noreferrer">
+        Information About Brokerage Services
+      </a>
+      <a href="/consumer-protection-notice.pdf" target="_blank" rel="noopener noreferrer">
+        Consumer Protection Notice
+      </a>
+    </div>
+  </footer>
+
+  <div class="copyright">
+    © 2025 ATXREALESTATE.COM
+  </div>
+
+  <script>
+    const header = document.getElementById('site-header');
+    const logoImg = document.querySelector('.logo-link img');
+    const topBanner = document.getElementById('top-banner');
+
+    function updateHeaderOffset() {
+      if (!header) return;
+      const bannerVisible = topBanner && topBanner.style.display !== 'none';
+      const bannerHeight = bannerVisible ? topBanner.offsetHeight : 0;
+      header.style.top = bannerHeight + 'px';
+    }
+
+    function onScroll() {
+      if (window.scrollY > 10) {
+        header.classList.add('header--solid');
+        if (logoImg) {
+          logoImg.src = 'blue-atx-logo.png';
+        }
+      } else {
+        header.classList.remove('header--solid');
+        if (logoImg) {
+          logoImg.src = 'white-atx-logo.png';
+        }
+      }
+    }
+
+    document.addEventListener('scroll', onScroll);
+    window.addEventListener('load', () => {
+      updateHeaderOffset();
+      onScroll();
+    });
+    window.addEventListener('resize', updateHeaderOffset);
+
+    function dismissBanner() {
+      if (topBanner) {
+        topBanner.style.display = 'none';
+      }
+      updateHeaderOffset();
+      onScroll();
+    }
+
+    // Tabs logic
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    function activateTab(tabName) {
+      tabButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-tab') === tabName);
+      });
+      tabPanels.forEach(panel => {
+        panel.classList.toggle('active', panel.getAttribute('data-panel') === tabName);
+      });
+    }
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const tabName = button.getAttribute('data-tab');
+        activateTab(tabName);
+      });
+    });
+
+    // Nav links that target specific tabs
+    const navLinks = document.querySelectorAll('nav.nav-links a[data-tab-target]');
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tabName = link.getAttribute('data-tab-target');
+        const servicesSection = document.getElementById('services');
+        if (servicesSection) {
+          servicesSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        activateTab(tabName);
+      });
+    });
+  </script>
+</body>
+</html>
