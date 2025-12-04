@@ -231,12 +231,14 @@
       min-height: 100vh;
       color: #ffffff;
       overflow: hidden;
+      background: #000000; /* avoids gray flash before video loads */
     }
 
     .hero-media {
       position: absolute;
       inset: 0;
       overflow: hidden;
+      background: #000000;
     }
 
     .hero-media video {
@@ -244,6 +246,7 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
+      background: #000000;
     }
 
     .hero-overlay {
@@ -634,7 +637,14 @@
   <!-- HERO WITH VIDEO -->
   <section id="hero">
     <div class="hero-media">
-      <video src="austin-skyline.mp4" autoplay muted loop playsinline></video>
+      <video
+        src="austin-skyline.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        poster="austin-skyline-poster.jpg"
+      ></video>
       <div class="hero-overlay"></div>
     </div>
     <div class="container hero-inner">
@@ -798,10 +808,12 @@
     }
 
     document.addEventListener('scroll', onScroll);
+
     window.addEventListener('load', () => {
       updateHeaderOffset();
-      onScroll();
+      // no onScroll() here, so it starts in the transparent/gradient state
     });
+
     window.addEventListener('resize', updateHeaderOffset);
 
     function dismissBanner() {
@@ -809,7 +821,7 @@
         topBanner.style.display = 'none';
       }
       updateHeaderOffset();
-      onScroll();
+      // header will still flip based on scroll when user moves
     }
 
     // Tabs logic
