@@ -7,28 +7,75 @@
   <title>Grab Coffee with Mechler</title>
   <meta name="robots" content="noindex, nofollow">
 
-  <script>
-    const phone = "+15129372696";
-    const message = "Hey Mechler, I’m an agent and I’d love to learn more about the opportunities over coffee.";
-    const smsLink = `sms:${phone}?body=${encodeURIComponent(message)}`;
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-    window.location.replace(smsLink);
-  </script>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: #ffffff;
+      color: #100B28;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+        "Helvetica Neue", Arial, sans-serif;
+      text-align: center;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 36px;
+      line-height: 1.05;
+      letter-spacing: -1.5px;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0 0 28px;
+      font-size: 17px;
+      line-height: 1.5;
+      color: #6b6b6b;
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      padding: 18px 24px;
+      border-radius: 14px;
+      background: #100B28;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 600;
+    }
+  </style>
 </head>
 
 <body>
-  <p>
-    Opening Messages...
-  </p>
 
-  <p>
-    <a id="text-link" href="#">
-      Tap here if Messages doesn't open automatically.
+  <main class="wrap">
+    <h1>Let’s grab coffee.</h1>
+
+    <p>
+      Interested in learning more about the opportunities?
+    </p>
+
+    <a
+      class="button"
+      href="sms:+15129372696?body=Hey%20Mechler%2C%20I%E2%80%99m%20an%20agent%20and%20I%E2%80%99d%20love%20to%20learn%20more%20about%20the%20opportunities%20over%20coffee."
+    >
+      Text Mechler
     </a>
-  </p>
+  </main>
 
-  <script>
-    document.getElementById("text-link").href = smsLink;
-  </script>
 </body>
 </html>
