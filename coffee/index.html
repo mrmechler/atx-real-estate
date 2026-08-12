@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Grab Coffee with Mechler</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <script>
+    const phone = "+15129372696";
+    const message = "Hey Mechler, I’m an agent and I’d love to learn more about the opportunities over coffee.";
+    const smsLink = `sms:${phone}?body=${encodeURIComponent(message)}`;
+
+    window.location.replace(smsLink);
+  </script>
+</head>
+
+<body>
+  <p>
+    Opening Messages...
+  </p>
+
+  <p>
+    <a id="text-link" href="#">
+      Tap here if Messages doesn't open automatically.
+    </a>
+  </p>
+
+  <script>
+    document.getElementById("text-link").href = smsLink;
+  </script>
+</body>
+</html>
