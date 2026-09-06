@@ -26,6 +26,7 @@
     html { scroll-behavior: smooth; background: var(--paper); }
     body {
       margin: 0;
+      overflow-x: hidden;
       color: var(--ink);
       background: var(--paper);
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
@@ -551,59 +552,172 @@
       .hero h1 { font-size: clamp(58px, 14vw, 84px); }
       .hero-sub { max-width: 560px; font-size: 20px; }
 
-      .move { min-height: auto; padding: 100px 0; }
+      .move { min-height: auto; padding: 88px 0; }
       .move-inner { width: calc(100% - 36px); }
-      .principles { grid-template-columns: 1fr; gap: 24px; }
+      .principles { grid-template-columns: 1fr; gap: 22px; }
       .principle { padding-top: 0; }
 
-      .market-frame { width: calc(100% - 36px); border-radius: 24px; }
-      .market-image { aspect-ratio: 4 / 3; }
-      .market-caption { grid-template-columns: 1fr; gap: 18px; padding: 26px 24px 28px; }
-      .neighborhoods { grid-template-columns: repeat(2,1fr); }
-      .neighborhoods span { border-bottom: 1px solid var(--line) !important; border-right: 1px solid var(--line) !important; }
-      .neighborhoods span:nth-child(2n) { border-right: 0 !important; }
-      .neighborhoods span:nth-last-child(-n+2) { border-bottom: 0 !important; }
+      .market-thought {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .market-thought-line { max-width: 680px; }
 
       .footer-top { grid-template-columns: 1fr; justify-items: start; }
       .footer-legal { justify-content: flex-start; flex-wrap: wrap; }
     }
 
     @media (max-width: 560px) {
-      .hero h1 { font-size: 55px; }
-      .hero-sub { font-size: 18px; margin-top: 20px; }
-      .hero-actions { margin-top: 24px; gap: 18px; }
-      .pill { min-height: 42px; padding-inline: 19px; font-size: 16px; }
-      .hero .text-action { font-size: 16px; }
+      :root { --nav-h: 56px; }
+      .shell { width: calc(100% - 32px); }
+      .header-inner { width: calc(100% - 28px); }
+      .brand img { width: 102px; }
 
-      .intro { padding: 105px 0 95px; }
-      .intro h2 { font-size: 48px; }
-      .intro p { font-size: 19px; }
+      .hero { min-height: 100svh; }
+      .hero-content {
+        width: calc(100% - 32px);
+        padding-top: 48px;
+        transform: translateY(2vh);
+      }
+      .hero h1 {
+        font-size: clamp(46px, 13.5vw, 55px);
+        line-height: .96;
+        letter-spacing: -.058em;
+      }
+      .hero-sub {
+        max-width: 340px;
+        margin-top: 20px;
+        font-size: 18px;
+        line-height: 1.4;
+        letter-spacing: -.028em;
+      }
+      .hero-actions { margin-top: 23px; }
+      .hero .text-action { font-size: 17px; }
 
-      .move { padding: 84px 0; }
-      .move-label { font-size: 16px; }
-      .move h3 { font-size: 45px; }
-      .move-copy { font-size: 19px; }
-      .principles { margin-top: 55px; }
+      .intro { padding: 76px 0 72px; }
+      .intro h2 {
+        font-size: clamp(41px, 11.6vw, 47px);
+        line-height: 1;
+        letter-spacing: -.058em;
+      }
+      .intro p {
+        max-width: 330px;
+        margin-top: 22px;
+        font-size: 18px;
+        line-height: 1.43;
+      }
 
-      .austin { padding: 100px 0; }
-      .austin-head h2 { font-size: 48px; }
-      .austin-head p { font-size: 19px; }
-      .market-frame { margin-top: 55px; border-radius: 20px; }
-      .market-image { aspect-ratio: 1 / 1; }
-      .market-caption strong { font-size: 28px; }
-      .market-caption p { font-size: 15px; }
-      .neighborhoods { margin-top: 46px; }
-      .neighborhoods span { padding: 18px 10px; font-size: 12px; }
+      .move { padding: 66px 0 62px; }
+      .move-label { margin-bottom: 13px; font-size: 15px; }
+      .move h3 {
+        max-width: 350px;
+        font-size: clamp(38px, 10.8vw, 43px);
+        line-height: 1.01;
+        letter-spacing: -.055em;
+      }
+      .move-copy {
+        max-width: 338px;
+        margin-top: 19px;
+        font-size: 18px;
+        line-height: 1.44;
+      }
+      .move .blue-link { margin-top: 21px; font-size: 17px; }
+      .principles {
+        margin-top: 38px;
+        padding-top: 22px;
+        gap: 0;
+      }
+      .principle { padding: 0 2px 18px; }
+      .principle + .principle {
+        padding-top: 18px;
+        border-top: 1px solid rgba(0,0,0,.08);
+      }
+      .principle:last-child { padding-bottom: 0; }
+      .principle strong { font-size: 15px; }
+      .principle span { margin-top: 6px; font-size: 13.5px; line-height: 1.43; }
 
-      .finance { padding: 100px 0; }
-      .finance h2 { font-size: 46px; }
-      .finance p:not(.section-label) { font-size: 19px; }
+      .austin { padding: 82px 0 78px; }
+      .austin-head h2 {
+        font-size: clamp(41px, 11.5vw, 47px);
+        line-height: 1;
+      }
+      .austin-lead {
+        max-width: 335px;
+        margin-top: 23px;
+        font-size: 21px;
+        line-height: 1.26;
+      }
+      .austin-detail {
+        max-width: 330px;
+        margin-top: 15px;
+        font-size: 17.5px;
+        line-height: 1.46;
+      }
+      .market-thought {
+        margin-top: 54px;
+        padding-top: 23px;
+        grid-template-columns: 1fr;
+        gap: 13px;
+      }
+      .market-thought-kicker { font-size: 13px; }
+      .market-thought-line {
+        max-width: 340px;
+        font-size: clamp(31px, 8.6vw, 35px);
+        line-height: 1.05;
+        letter-spacing: -.05em;
+      }
 
-      .contact { padding: 100px 0; }
-      .contact h2 { font-size: 50px; }
-      .contact-copy { font-size: 19px; }
-      .portrait { width: 104px; height: 104px; }
-      .de-logo { width: 150px; }
+      .finance { padding: 78px 0 76px; }
+      .finance-inner { width: calc(100% - 32px); }
+      .section-label { margin-bottom: 13px; font-size: 15px; }
+      .finance h2 {
+        font-size: clamp(40px, 11vw, 45px);
+        line-height: 1.01;
+      }
+      .finance p:not(.section-label) {
+        max-width: 335px;
+        margin-top: 20px;
+        font-size: 18px;
+        line-height: 1.44;
+      }
+      .finance .blue-link { margin-top: 22px; font-size: 17px; }
+
+      .contact { padding: 78px 0 72px; }
+      .contact-inner { width: calc(100% - 32px); }
+      .portrait {
+        width: 90px;
+        height: 90px;
+        margin-bottom: 23px;
+      }
+      .contact h2 {
+        font-size: clamp(43px, 11.8vw, 49px);
+        line-height: 1;
+      }
+      .contact-copy {
+        max-width: 335px;
+        margin-top: 20px;
+        font-size: 18px;
+        line-height: 1.44;
+      }
+      .contact-actions {
+        margin-top: 26px;
+        flex-direction: column;
+        gap: 13px;
+      }
+      .identity { margin-top: 20px; font-size: 12px; }
+
+      .site-footer { padding: 28px 0 30px; }
+      .footer-top { gap: 20px; }
+      .de-logo { width: 145px; }
+      .footer-legal { gap: 10px 16px; line-height: 1.45; }
+      .footer-bottom { margin-top: 19px; padding-top: 16px; }
+    }
+
+
+    @media (max-width: 340px) {
+      .hero h1 { font-size: 42px; max-width: 290px; margin-inline: auto; }
+      .hero-sub { font-size: 17px; }
+      .mobile-menu nav a { font-size: 28px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -660,12 +774,12 @@
         <h1>Make your move in Austin.</h1>
         <p class="hero-sub">Precision guidance for buying, selling, leasing, and investing across Austin.</p>
         <div class="hero-actions">
-          <a class="pill" href="sms:+15129372696">Get started</a>
+          <a class="text-action" href="#overview">Explore your options</a>
         </div>
       </div>
     </section>
 
-    <section class="intro">
+    <section class="intro" id="overview">
       <div class="shell reveal">
         <h2>See the whole <span>picture.</span></h2>
         <p>Price. Timing. Location. Financing. Leverage. The right move comes from understanding how the pieces work together.</p>
@@ -820,7 +934,8 @@
           const progress = Math.min(1, y / h);
           heroVideo.style.transform = `scale(${1.015 + progress * .025})`;
           heroContent.style.opacity = String(Math.max(0, 1 - progress * 1.35));
-          heroContent.style.transform = `translateY(${4 + progress * 4}vh)`;
+          const baseY = window.innerWidth <= 560 ? 2 : (window.innerWidth <= 900 ? 3 : 4);
+          heroContent.style.transform = `translateY(${baseY + progress * 4}vh)`;
         }
         ticking = false;
       });
