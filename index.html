@@ -1,862 +1,862 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>ATXREALESTATE.COM</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="ATXREALESTATE.COM — precision guidance for buying, selling, leasing, and investing in Austin real estate. Work directly with Michael Mechler, Broker Associate at Douglas Elliman.">
-
-  <!-- Font (swap to Gotham in production if you have the license) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="Precision guidance for buying, selling, leasing, and investing across Austin." />
+  <title>ATXRealEstate.com | Austin Real Estate</title>
 
   <style>
     :root {
-      --de-blue-black: #100B28;
-      --de-blue: #009CBD;
-      --de-gray: #323744;
-
-      --bg-light: #F5F5F7;
-      --text-main: #111827;
-      --text-soft: #4B5563;
-      --border-soft: #E5E7EB;
-
-      --radius-lg: 24px;
-      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.16);
+      --ink: #1d1d1f;
+      --ink-2: #424245;
+      --muted: #6e6e73;
+      --line: rgba(0,0,0,.12);
+      --paper: #ffffff;
+      --soft: #f5f5f7;
+      --blue: #0071e3;
+      --blue-hover: #0077ed;
+      --nav-h: 64px;
+      --max: 1180px;
+      --ease: cubic-bezier(.28,.11,.32,1);
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html, body {
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--paper); }
+    body {
       margin: 0;
-      padding: 0;
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text-main);
-      background: #ffffff;
-      scroll-behavior: smooth;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
-    img {
-      max-width: 100%;
-      display: block;
+    body.menu-open { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img, video { display: block; max-width: 100%; }
+    button { font: inherit; }
+    ::selection { background: rgba(0,113,227,.16); }
+
+    .shell {
+      width: min(var(--max), calc(100% - 48px));
+      margin-inline: auto;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* TOP BANNER (Matterport promo) */
-    .top-banner {
-      width: 100%;
-      background: #111827;
-      color: #F9FAFB;
-      font-size: 13px;
-      padding: 8px 16px;
-      display: flex;
-      justify-content: center;
+    .blue-link {
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 40;
-    }
-
-    .top-banner-inner {
-      max-width: 1120px;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      text-align: center;
-    }
-
-    .top-banner strong {
-      font-weight: 600;
-    }
-
-    .top-banner a {
-      color: #93C5FD;
-      text-decoration: underline;
+      gap: 5px;
+      color: var(--blue);
+      font-size: 18px;
+      line-height: 1.3;
       font-weight: 500;
+      letter-spacing: -.022em;
     }
-
-    .top-banner-close {
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      border: none;
-      background: transparent;
-      color: #E5E7EB;
-      font-size: 16px;
-      cursor: pointer;
-      padding: 2px 4px;
+    .blue-link::after {
+      content: "›";
+      font-size: 24px;
+      line-height: .8;
+      transform: translateY(-1px);
+      transition: transform .2s var(--ease);
     }
+    .blue-link:hover::after { transform: translate(3px,-1px); }
 
-    /* HEADER */
-    header {
-      position: fixed;
-      left: 0;
-      right: 0;
-      z-index: 30;
-      padding: 14px 0;
-      background: linear-gradient(to bottom, rgba(16, 11, 40, 0.94), rgba(16, 11, 40, 0.4), transparent);
-      backdrop-filter: blur(14px);
-      transition: background 0.25s ease-out, box-shadow 0.25s ease-out, transform 0.2s ease-out, top 0.2s ease-out;
-      top: 40px; /* updated dynamically based on banner height */
-    }
-
-    header.header--solid {
-      background: #ffffff;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-    }
-
-    .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    /* Logo */
-    .logo-link img {
-      height: 60px;
-      width: auto;
-      display: block;
-      transition: height 0.2s ease-out;
-    }
-
-    @media (max-width: 900px) {
-      .logo-link img {
-        height: 44px;
-      }
-    }
-
-    nav.nav-links {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: #E5E7EB;
-      font-weight: 500;
-    }
-
-    nav.nav-links a {
-      position: relative;
-      padding-bottom: 2px;
-      border: none;
-      background: none;
-      font: inherit;
-      color: inherit;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      line-height: 1;
-    }
-
-    nav.nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0;
-      height: 1px;
-      background: currentColor;
-      transition: width 0.18s ease-out;
-    }
-
-    nav.nav-links a:hover::after {
-      width: 100%;
-    }
-
-    header.header--solid nav.nav-links {
-      color: var(--de-gray);
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn {
+    .pill {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border-radius: 999px;
-      padding: 10px 22px;
-      font-size: 14px;
+      min-height: 44px;
+      padding: 0 21px;
+      border-radius: 980px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 17px;
+      line-height: 1;
       font-weight: 500;
-      border: none;
+      letter-spacing: -.022em;
+      transition: background .2s ease, transform .2s var(--ease);
+    }
+    .pill:hover { background: var(--blue-hover); transform: scale(1.012); }
+
+    /* Primary header */
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: var(--nav-h);
+      z-index: 100;
+      color: #fff;
+      transition: color .3s var(--ease), background .3s var(--ease), border-color .3s var(--ease), backdrop-filter .3s var(--ease);
+      border-bottom: 1px solid transparent;
+    }
+    .site-header.solid {
+      color: var(--ink);
+      background: rgba(255,255,255,.82);
+      border-bottom-color: rgba(0,0,0,.08);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+    }
+    .header-inner {
+      width: min(1220px, calc(100% - 40px));
+      height: 100%;
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: 210px 1fr 210px;
+      gap: 20px;
+      align-items: center;
+    }
+    .brand { width: fit-content; display: inline-flex; align-items: center; }
+    .brand img { width: 116px; height: auto; }
+
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -.01em;
+    }
+    .desktop-nav a { opacity: .82; transition: opacity .2s ease; }
+    .desktop-nav a:hover { opacity: 1; }
+
+    .header-call {
+      justify-self: end;
+      min-height: 34px;
+      padding: 0 14px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 980px;
+      background: rgba(255,255,255,.94);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: -.012em;
+      transition: background .2s ease, color .2s ease;
+    }
+    .site-header.solid .header-call { background: var(--blue); color: #fff; }
+
+    .menu-button {
+      display: none;
+      justify-self: end;
+      width: 38px;
+      height: 38px;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: currentColor;
       cursor: pointer;
-      white-space: nowrap;
-      transition: background 0.18s ease-out, color 0.18s ease-out, transform 0.18s ease-out, box-shadow 0.18s ease-out;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--de-blue-black) 0%, var(--de-blue) 100%);
-      color: #ffffff;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
-    }
-
-    /* HERO WITH VIDEO BACKGROUND */
-    #hero {
       position: relative;
-      min-height: 100vh;
-      color: #ffffff;
-      overflow: hidden;
-      background: #000000; /* avoids gray flash before video loads */
     }
+    .menu-button::before,
+    .menu-button::after {
+      content: "";
+      position: absolute;
+      left: 10px;
+      width: 18px;
+      height: 1px;
+      background: currentColor;
+      transition: transform .25s var(--ease), top .25s var(--ease);
+    }
+    .menu-button::before { top: 15px; }
+    .menu-button::after { top: 22px; }
+    body.menu-open .menu-button::before { top: 19px; transform: rotate(45deg); }
+    body.menu-open .menu-button::after { top: 19px; transform: rotate(-45deg); }
 
-    .hero-media {
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      background: rgba(255,255,255,.98);
+      padding: 104px 28px 36px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity .25s var(--ease), transform .25s var(--ease), visibility .25s;
+    }
+    body.menu-open .mobile-menu { opacity: 1; visibility: visible; transform: none; }
+    .mobile-menu nav { display: grid; }
+    .mobile-menu nav a {
+      padding: 15px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 30px;
+      line-height: 1.1;
+      font-weight: 600;
+      letter-spacing: -.045em;
+    }
+    .mobile-menu .contact-row { display: flex; gap: 26px; margin-top: 32px; color: var(--blue); font-size: 17px; }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
+      isolation: isolate;
+      background: #cfd7dc;
+      color: #fff;
+      display: grid;
+      place-items: center;
+    }
+    .hero-video {
       position: absolute;
       inset: 0;
-      overflow: hidden;
-      background: #000000;
-    }
-
-    .hero-media video {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
-      background: #000000;
+      object-position: center center;
+      z-index: -3;
+      transform: scale(1.015);
+      will-change: transform;
     }
-
-    .hero-overlay {
+    .hero::before {
+      content: "";
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.25) 40%, rgba(0, 0, 0, 0.75));
+      z-index: -2;
+      background: linear-gradient(to bottom, rgba(5,10,14,.24), rgba(5,10,14,.12) 45%, rgba(5,10,14,.28));
     }
-
-    .hero-inner {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
+    .hero-content {
+      width: min(960px, calc(100% - 42px));
+      padding-top: 70px;
+      text-align: center;
+      transform: translateY(4vh);
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(58px, 7.1vw, 104px);
+      line-height: .94;
+      letter-spacing: -.064em;
+      font-weight: 650;
+      text-wrap: balance;
+      text-shadow: 0 2px 30px rgba(0,0,0,.20);
+    }
+    .hero-sub {
+      max-width: 720px;
+      margin: 25px auto 0;
+      font-size: clamp(20px, 2vw, 25px);
+      line-height: 1.35;
+      letter-spacing: -.032em;
+      font-weight: 450;
+      color: rgba(255,255,255,.95);
+      text-wrap: balance;
+      text-shadow: 0 1px 20px rgba(0,0,0,.18);
+    }
+    .hero-actions {
+      margin-top: 30px;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
+      gap: 22px;
     }
-
-    .hero-content {
-      padding: 130px 0 90px;
-      max-width: 760px;
-      margin: 0 auto;
-      animation: fadeInUp 0.7s ease-out both;
-    }
-
-    .hero-title {
-      font-size: clamp(40px, 6vw, 56px);
-      line-height: 1.08;
-      letter-spacing: 0.02em;
-      margin: 0 0 14px;
-    }
-
-    .hero-subtitle {
-      font-size: 18px;
-      font-weight: 500;
-      color: #E5E7EB;
-      margin-bottom: 26px;
-    }
-
-    .hero-question {
+    .hero .text-action {
+      color: #fff;
       font-size: 17px;
       font-weight: 500;
-      margin-bottom: 18px;
-      color: #F9FAFB;
+      letter-spacing: -.02em;
     }
+    .hero .text-action::after { content: " ›"; }
 
-    .hero-cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* GENERIC SECTION SPACING */
-    section {
-      padding: 80px 0;
-    }
-
-    /* SERVICES / TABS SECTION */
-    #services {
-      background: #ffffff;
-    }
-
-    .services-header {
-      text-align: center;
-      margin-bottom: 32px;
-    }
-
-    .services-header h2 {
-      font-size: 28px;
-      margin: 0 0 8px;
-    }
-
-    .services-header p {
-      font-size: 15px;
-      color: var(--text-soft);
-      margin: 0;
-    }
-
-    .tabs {
-      display: flex;
-      border-radius: 999px;
-      background: #F3F4F6;
-      padding: 4px;
-      margin: 0 auto 28px;
-      max-width: 640px;
-    }
-
-    .tab-button {
-      flex: 1;
-      text-align: center;
-      border-radius: 999px;
-      padding: 10px 12px;
-      font-size: 14px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      border: none;
-      cursor: pointer;
-      background: transparent;
-      color: var(--de-gray);
-      transition: background 0.16s ease-out, color 0.16s ease-out, box-shadow 0.16s ease-out;
-    }
-
-    .tab-button.active {
-      background: var(--de-blue-black);
-      color: #ffffff;
-      box-shadow: 0 10px 25px rgba(16, 11, 40, 0.35);
-    }
-
-    .tab-panels {
-      max-width: 780px;
-      margin: 0 auto 40px;
-    }
-
-    .tab-panel {
-      display: none;
-      animation: fadeInUp 0.4s ease-out;
-    }
-
-    .tab-panel.active {
-      display: block;
-    }
-
-    .tab-panel h3 {
-      font-size: 24px;
-      margin: 0 0 10px;
-    }
-
-    .tab-panel p {
-      font-size: 16px;
-      color: var(--text-soft);
-      line-height: 1.9;
-      margin: 0;
-    }
-
-    /* CTA BLOCK AFTER TABS */
-    .cta-after-tabs {
-      text-align: center;
-      margin-top: 8px;
-    }
-
-    .cta-after-tabs h3 {
-      font-size: 24px;
-      margin: 0 0 16px;
-    }
-
-    /* Financing note under CTA */
-    .financing-note {
-      margin-top: 18px;
-      font-size: 13px;
-      color: var(--text-soft);
+    /* Intro */
+    .intro {
+      padding: clamp(130px, 16vw, 210px) 0 clamp(120px, 14vw, 180px);
+      background: var(--paper);
       text-align: center;
     }
-
-    .financing-note a {
-      color: var(--de-blue);
-      text-decoration: none;
-      font-weight: 500;
+    .intro h2 {
+      max-width: 980px;
+      margin: 0 auto;
+      font-size: clamp(50px, 6.7vw, 92px);
+      line-height: .99;
+      letter-spacing: -.064em;
+      font-weight: 640;
+      text-wrap: balance;
+    }
+    .intro h2 span { color: #86868b; }
+    .intro p {
+      max-width: 680px;
+      margin: 30px auto 0;
+      color: var(--muted);
+      font-size: clamp(19px, 1.9vw, 24px);
+      line-height: 1.45;
+      letter-spacing: -.03em;
+      text-wrap: balance;
     }
 
-    .financing-note a:hover {
-      text-decoration: underline;
-    }
-
-    /* FOOTER TEMPLATE (standardized) */
-    footer {
-      background: #ffffff;
-      padding: 24px 48px;
-      border-top: 1px solid #e8e8e8;
-      display: flex;
-      justify-content: space-between;
+    /* Journey */
+    .journey { background: var(--paper); }
+    .move {
+      min-height: 78svh;
+      display: grid;
       align-items: center;
+      padding: 110px 0;
+      border-top: 1px solid rgba(0,0,0,.08);
     }
-
-    .footer-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
+    .move:last-child { border-bottom: 1px solid rgba(0,0,0,.08); }
+    .move-inner {
+      width: min(1040px, calc(100% - 48px));
+      margin-inline: auto;
+      text-align: center;
     }
-
-    .footer-logo {
-      height: 48px;
+    .move-label {
+      margin: 0 0 18px;
+      color: var(--blue);
+      font-size: 17px;
+      line-height: 1.2;
+      font-weight: 600;
+      letter-spacing: -.022em;
     }
-
-    .footer-platform {
-      font-size: 12px;
-      color: #5c5c5c;
-      margin-bottom: 4px;
+    .move h3 {
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: clamp(48px, 6.1vw, 80px);
+      line-height: 1;
+      letter-spacing: -.06em;
+      font-weight: 640;
+      text-wrap: balance;
     }
-
-    .footer-text-bottom {
-      font-size: 12px;
-      color: #5c5c5c;
+    .move-copy {
+      max-width: 690px;
+      margin: 25px auto 0;
+      color: var(--muted);
+      font-size: clamp(19px, 1.75vw, 23px);
+      line-height: 1.48;
+      letter-spacing: -.029em;
+      text-wrap: balance;
     }
-
-    .footer-text-desktop {
-      display: inline-block;
-    }
-
-    .footer-text-mobile {
-      display: none;
-    }
-
-    .footer-links {
-      text-align: right;
-    }
-
-    .footer-links a {
-      display: block;
-      font-size: 12px;
-      color: #6b7280;
-      text-decoration: none;
-      margin-bottom: 4px;
-    }
-
-    .footer-links a:hover {
-      text-decoration: underline;
-    }
-
-    .copyright {
+    .move .blue-link { margin-top: 27px; }
+    .principles {
+      width: min(900px, 100%);
+      margin: 72px auto 0;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px;
       text-align: left;
+    }
+    .principle strong {
+      display: block;
+      font-size: 16px;
+      line-height: 1.25;
+      font-weight: 600;
+      letter-spacing: -.02em;
+    }
+    .principle span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.48;
+      letter-spacing: -.012em;
+    }
+
+    /* Austin */
+    .austin {
+      padding: clamp(140px, 16vw, 220px) 0;
+      background: var(--soft);
+    }
+    .austin-head {
+      max-width: 980px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .austin-head h2 {
+      margin: 0;
+      font-size: clamp(54px, 7vw, 94px);
+      line-height: .98;
+      letter-spacing: -.064em;
+      font-weight: 640;
+      text-wrap: balance;
+    }
+    .austin-lead {
+      max-width: 760px;
+      margin: 31px auto 0;
+      color: var(--ink);
+      font-size: clamp(24px, 2.6vw, 34px);
+      line-height: 1.25;
+      letter-spacing: -.04em;
+      font-weight: 560;
+      text-wrap: balance;
+    }
+    .austin-detail {
+      max-width: 650px;
+      margin: 20px auto 0;
+      color: var(--muted);
+      font-size: clamp(18px, 1.65vw, 22px);
+      line-height: 1.5;
+      letter-spacing: -.027em;
+      text-wrap: balance;
+    }
+    .market-thought {
+      margin-top: clamp(90px, 10vw, 140px);
+      padding-top: 35px;
+      border-top: 1px solid rgba(0,0,0,.12);
+      display: grid;
+      grid-template-columns: minmax(180px,.45fr) minmax(0,1.55fr);
+      gap: 70px;
+      align-items: start;
+    }
+    .market-thought-kicker {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.4;
+      font-weight: 600;
+      letter-spacing: -.018em;
+    }
+    .market-thought-line {
+      max-width: 780px;
+      font-size: clamp(36px, 4.3vw, 58px);
+      line-height: 1.05;
+      letter-spacing: -.053em;
+      font-weight: 620;
+      text-wrap: balance;
+    }
+
+    /* Financing */
+    .finance {
+      padding: clamp(120px, 14vw, 190px) 0;
+      text-align: center;
+      background: #fff;
+    }
+    .finance-inner { width: min(860px, calc(100% - 48px)); margin: 0 auto; }
+    .section-label {
+      margin: 0 0 18px;
+      color: var(--blue);
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -.022em;
+    }
+    .finance h2 {
+      margin: 0;
+      font-size: clamp(48px, 6vw, 78px);
+      line-height: 1;
+      letter-spacing: -.058em;
+      font-weight: 640;
+      text-wrap: balance;
+    }
+    .finance p:not(.section-label) {
+      max-width: 670px;
+      margin: 27px auto 0;
+      color: var(--muted);
+      font-size: clamp(19px, 1.8vw, 23px);
+      line-height: 1.46;
+      letter-spacing: -.029em;
+      text-wrap: balance;
+    }
+    .finance .blue-link { margin-top: 28px; }
+
+    /* Contact */
+    .contact {
+      padding: clamp(120px, 14vw, 180px) 0;
+      background: var(--soft);
+      text-align: center;
+    }
+    .contact-inner { width: min(920px, calc(100% - 48px)); margin: 0 auto; }
+    .portrait {
+      width: 118px;
+      height: 118px;
+      margin: 0 auto 31px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #e8e8ed;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.04);
+    }
+    .portrait img { width: 100%; height: 100%; object-fit: cover; }
+    .contact h2 {
+      margin: 0;
+      font-size: clamp(52px, 6.4vw, 86px);
+      line-height: .99;
+      letter-spacing: -.062em;
+      font-weight: 640;
+      text-wrap: balance;
+    }
+    .contact-copy {
+      max-width: 670px;
+      margin: 27px auto 0;
+      color: var(--muted);
+      font-size: clamp(19px, 1.8vw, 23px);
+      line-height: 1.46;
+      letter-spacing: -.028em;
+      text-wrap: balance;
+    }
+    .contact-actions {
+      margin-top: 31px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+    .identity {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .identity strong { color: var(--ink); font-weight: 600; }
+
+    /* Footer */
+    .site-footer {
+      background: #fff;
+      border-top: 1px solid var(--line);
+      padding: 34px 0 38px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 30px;
+    }
+    .de-logo { width: 165px; height: auto; }
+    .footer-id {
+      color: #6e6e73;
       font-size: 12px;
-      color: #7a7a7a;
-      width: 100%;
-      padding: 8px 48px 24px;
+      line-height: 1.55;
+    }
+    .footer-id strong { color: #424245; font-weight: 600; }
+    .footer-legal {
+      display: flex;
+      justify-content: flex-end;
+      gap: 18px;
+      font-size: 11px;
+      color: #6e6e73;
+    }
+    .footer-legal a:hover { color: var(--ink); }
+    .footer-bottom {
+      margin-top: 23px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(0,0,0,.08);
+      color: #86868b;
+      font-size: 11px;
     }
 
-    /* COMMERCIAL FOOTER BLOCK */
-    .footer-commercial {
-      width: 100%;
-      padding: 8px 48px 0;
-      text-align: right;
+    /* Purposeful motion only */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .75s var(--ease), transform .75s var(--ease);
     }
+    .reveal.in { opacity: 1; transform: none; }
 
-    .footer-commercial-text {
-      font-size: 12px;
-      color: #5c5c5c;
-      margin-bottom: 4px;
-    }
-
-    .footer-commercial-logo {
-      height: 32px;
-      opacity: 0.9;
-      transition: opacity 0.2s ease;
-      display: inline-block;
-    }
-
-    .footer-commercial-logo:hover {
-      opacity: 1;
-    }
-
-    /* RESPONSIVE */
     @media (max-width: 900px) {
-      nav.nav-links {
-        display: none;
-      }
+      :root { --nav-h: 60px; }
+      .shell { width: min(var(--max), calc(100% - 36px)); }
+      .header-inner { width: calc(100% - 30px); grid-template-columns: 1fr auto; }
+      .desktop-nav, .header-call { display: none; }
+      .menu-button { display: block; }
+      .brand img { width: 105px; }
 
-      .hero-content {
-        padding-top: 120px;
-        padding-bottom: 80px;
-        padding-left: 12px;
-        padding-right: 12px;
-      }
+      .hero-content { width: calc(100% - 32px); transform: translateY(3vh); }
+      .hero h1 { font-size: clamp(58px, 14vw, 84px); }
+      .hero-sub { max-width: 560px; font-size: 20px; }
 
-      .hero-title {
-        font-size: 34px;
-      }
+      .move { min-height: auto; padding: 100px 0; }
+      .move-inner { width: calc(100% - 36px); }
+      .principles { grid-template-columns: 1fr; gap: 24px; }
+      .principle { padding-top: 0; }
 
-      .tabs {
-        flex-wrap: wrap;
-        gap: 6px;
-        border-radius: 18px;
-      }
+      .market-frame { width: calc(100% - 36px); border-radius: 24px; }
+      .market-image { aspect-ratio: 4 / 3; }
+      .market-caption { grid-template-columns: 1fr; gap: 18px; padding: 26px 24px 28px; }
+      .neighborhoods { grid-template-columns: repeat(2,1fr); }
+      .neighborhoods span { border-bottom: 1px solid var(--line) !important; border-right: 1px solid var(--line) !important; }
+      .neighborhoods span:nth-child(2n) { border-right: 0 !important; }
+      .neighborhoods span:nth-last-child(-n+2) { border-bottom: 0 !important; }
 
-      .tab-button {
-        flex: 1 1 calc(50% - 6px);
-        font-size: 12px;
-        padding: 9px 8px;
-      }
-
-      section {
-        padding: 64px 20px;
-      }
+      .footer-top { grid-template-columns: 1fr; justify-items: start; }
+      .footer-legal { justify-content: flex-start; flex-wrap: wrap; }
     }
 
-    @media (max-width: 768px) {
-      header {
-        padding: 12px 20px;
-      }
+    @media (max-width: 560px) {
+      .hero h1 { font-size: 55px; }
+      .hero-sub { font-size: 18px; margin-top: 20px; }
+      .hero-actions { margin-top: 24px; gap: 18px; }
+      .pill { min-height: 42px; padding-inline: 19px; font-size: 16px; }
+      .hero .text-action { font-size: 16px; }
 
-      .services-header h2 {
-        font-size: 24px;
-      }
+      .intro { padding: 105px 0 95px; }
+      .intro h2 { font-size: 48px; }
+      .intro p { font-size: 19px; }
 
-      .cta-after-tabs h3 {
-        font-size: 22px;
-      }
+      .move { padding: 84px 0; }
+      .move-label { font-size: 16px; }
+      .move h3 { font-size: 45px; }
+      .move-copy { font-size: 19px; }
+      .principles { margin-top: 55px; }
 
-      /* Mobile footer behavior */
-      footer {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 16px;
-        padding: 24px 20px;
-      }
+      .austin { padding: 100px 0; }
+      .austin-head h2 { font-size: 48px; }
+      .austin-head p { font-size: 19px; }
+      .market-frame { margin-top: 55px; border-radius: 20px; }
+      .market-image { aspect-ratio: 1 / 1; }
+      .market-caption strong { font-size: 28px; }
+      .market-caption p { font-size: 15px; }
+      .neighborhoods { margin-top: 46px; }
+      .neighborhoods span { padding: 18px 10px; font-size: 12px; }
 
-      .footer-left {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 8px;
-      }
+      .finance { padding: 100px 0; }
+      .finance h2 { font-size: 46px; }
+      .finance p:not(.section-label) { font-size: 19px; }
 
-      .footer-text-desktop {
-        display: none;
-      }
+      .contact { padding: 100px 0; }
+      .contact h2 { font-size: 50px; }
+      .contact-copy { font-size: 19px; }
+      .portrait { width: 104px; height: 104px; }
+      .de-logo { width: 150px; }
+    }
 
-      .footer-text-mobile {
-        display: inline-block;
-        line-height: 1.4;
-      }
-
-      .footer-links {
-        text-align: center;
-      }
-
-      .footer-commercial {
-        text-align: center;
-        padding: 16px 20px 0;
-      }
-
-      .copyright {
-        text-align: center;
-        padding: 16px 20px 32px;
-      }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .001ms !important; animation-duration: .001ms !important; animation-iteration-count: 1 !important; }
+      .reveal { opacity: 1; transform: none; }
+      .hero-video { transform: none !important; }
     }
   </style>
 </head>
 
 <body>
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="ATXRealEstate.com home">
+        <img id="headerLogo" src="white-atx-logo.png" data-light="white-atx-logo.png" data-dark="blue-atx-logo.png" alt="ATXRealEstate.com" />
+      </a>
 
-  <!-- TOP BANNER -->
-  <div class="top-banner" id="top-banner">
-    <div class="top-banner-inner">
-      <span>
-        <strong>Thinking of selling this year?</strong>
-        Sign up by 8/31/2026 and receive a complimentary Zillow 3D tour! List anytime in 2026.
-        <a href="sms:+15129372696">Learn&nbsp;more</a>
-      </span>
-    </div>
-    <button class="top-banner-close" aria-label="Dismiss promotion" onclick="dismissBanner()">×</button>
-  </div>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#buy">Buy</a>
+        <a href="#sell">Sell</a>
+        <a href="#lease">Lease</a>
+        <a href="#invest">Invest</a>
+        <a href="/financing">Financing</a>
+      </nav>
 
-  <!-- HEADER -->
-  <header id="site-header">
-    <div class="container">
-      <div class="header-inner">
-        <div class="nav-left">
-          <a href="#hero" class="logo-link" aria-label="ATXRealEstate.com">
-            <img src="white-atx-logo.png" alt="ATXRealEstate.com logo">
-          </a>
-        </div>
-
-        <nav class="nav-links">
-          <a href="#services" data-tab-target="buy">Buy</a>
-          <a href="#services" data-tab-target="sell">Sell</a>
-          <a href="#services" data-tab-target="lease">Lease</a>
-          <a href="#services" data-tab-target="invest">Invest</a>
-          <a href="/financing">Financing</a>
-        </nav>
-
-        <div class="nav-right">
-          <!-- Click-to-call button -->
-          <a href="tel:+15129372696" class="btn btn-primary">CALL (512) YES-2-OWN</a>
-        </div>
-      </div>
+      <a class="header-call" href="tel:+15129372696">CALL (512) YES-2-OWN</a>
+      <button class="menu-button" id="menuButton" aria-label="Open menu" aria-expanded="false"></button>
     </div>
   </header>
 
-  <!-- HERO WITH VIDEO -->
-  <section id="hero">
-    <div class="hero-media">
-      <video
-        src="hero-skyline.mp4"
-        autoplay
-        muted
-        loop
-        playsinline
-        poster="austin-skyline-poster.jpg"
-      ></video>
-      <div class="hero-overlay"></div>
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <nav>
+      <a href="#buy">Buy</a>
+      <a href="#sell">Sell</a>
+      <a href="#lease">Lease</a>
+      <a href="#invest">Invest</a>
+      <a href="/financing">Financing</a>
+    </nav>
+    <div class="contact-row">
+      <a href="tel:+15129372696">Call</a>
+      <a href="sms:+15129372696">Text</a>
     </div>
-    <div class="container hero-inner">
-      <div class="hero-content">
-        <h1 class="hero-title">Make your move in Austin</h1>
-        <div class="hero-subtitle">
-          Precision guidance for buying, selling, leasing, and investing across Austin.
-        </div>
-        <div class="hero-question">
-          Ready to talk about your next move?
-        </div>
-        <div class="hero-cta-row">
-          <a href="sms:+15129372696" class="btn btn-primary">Text a Human</a>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
 
-  <!-- SERVICES / TABS -->
-  <section id="services">
-    <div class="container">
-      <div class="services-header">
-        <h2>How can I help you today?</h2>
-        <p>Select an area to learn how we can work together.</p>
-      </div>
+  <main id="top">
+    <section class="hero" id="hero" aria-label="Austin skyline">
+      <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <source src="hero-skyline.mp4" type="video/mp4" />
+        <source src="https://raw.githubusercontent.com/mrmechler/atx-real-estate/main/hero-skyline.mp4" type="video/mp4" />
+      </video>
 
-      <div class="tabs">
-        <button class="tab-button active" data-tab="buy">Buy</button>
-        <button class="tab-button" data-tab="sell">Sell</button>
-        <button class="tab-button" data-tab="lease">Lease</button>
-        <button class="tab-button" data-tab="invest">Invest</button>
-      </div>
-
-      <div class="tab-panels">
-        <div class="tab-panel active" data-panel="buy">
-          <h3>Buy smart. Move with confidence.</h3>
-          <p>
-            Whether it’s your first home or your fifth, we’ll focus on the neighborhoods, floor plans,
-            and numbers that actually fit your life. No endless scrolling — just data-backed insights that guide
-            you in the right direction.
-          </p>
-        </div>
-
-        <div class="tab-panel" data-panel="sell">
-          <h3>Sell with strategy, not hope.</h3>
-          <p>
-            Marketing a property is more than listing it on the MLS. We proactively market your home
-            through video marketing, social media content creation, direct mail, email campaigns, and good
-            ole-fashioned word of mouth to our network of buyers and buyers’ agents — giving your property
-            the maximum exposure it deserves.
-          </p>
-        </div>
-
-        <div class="tab-panel" data-panel="lease">
-          <h3>Lease with clarity, not chaos.</h3>
-          <p>
-            Whether you’re securing a place before buying or leasing out a property you own,
-            we’ll help you navigate pricing, timing, and terms so you can make confident decisions without
-            the guesswork.
-          </p>
-        </div>
-
-        <div class="tab-panel" data-panel="invest">
-          <h3>Invest with intention, not FOMO.</h3>
-          <p>
-            From short-term rentals to long-term holds,
-            we’ll look at real numbers and evaluate the risk. You’ll see what’s possible
-            with your capital, timeline, and goals — and what isn’t.
-          </p>
+      <div class="hero-content" id="heroContent">
+        <h1>Make your move in Austin.</h1>
+        <p class="hero-sub">Precision guidance for buying, selling, leasing, and investing across Austin.</p>
+        <div class="hero-actions">
+          <a class="pill" href="sms:+15129372696">Get started</a>
         </div>
       </div>
+    </section>
 
-      <!-- CTA AFTER TABS / CONTACT ANCHOR -->
-      <div class="cta-after-tabs" id="contact">
-        <h3>Let’s talk strategy over a round at Topgolf.</h3>
-        <a
-          class="btn btn-primary"
-          href="mailto:mechler@atxrealestate.com?subject=I'd%20like%20to%20book%20my%20strategy%20session&body=I'm%20looking%20to%20(buy/sell/lease/invest):%0AIdeal%20timeline:%0ABudget/price%20range:%0ANeighborhoods/areas%20I'm%20considering:%0AAny%20specific%20questions%20or%20details:"
-        >
-          Book Strategy Session
-        </a>
+    <section class="intro">
+      <div class="shell reveal">
+        <h2>See the whole <span>picture.</span></h2>
+        <p>Price. Timing. Location. Financing. Leverage. The right move comes from understanding how the pieces work together.</p>
+      </div>
+    </section>
+
+    <section class="journey" aria-label="Ways we can help">
+      <article class="move" id="buy" data-chapter="buy">
+        <div class="move-inner reveal">
+          <p class="move-label">Buy</p>
+          <h3>Find the right home. Know why it’s right.</h3>
+          <p class="move-copy">Understand the property, the neighborhood, the value, and the terms before you make the move.</p>
+          <a class="blue-link" href="sms:+15129372696?&body=I%27m%20thinking%20about%20buying%20in%20Austin.">Talk about buying</a>
+          <div class="principles" aria-label="Buying guidance">
+            <div class="principle"><strong>Search with context.</strong><span>Inventory, location, pricing and the details a portal can’t explain.</span></div>
+            <div class="principle"><strong>Evaluate the whole property.</strong><span>Condition, taxes, financing, resale and the compromises worth making.</span></div>
+            <div class="principle"><strong>Offer with intention.</strong><span>Terms built around the property, the competition and your leverage.</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="move" id="sell" data-chapter="sell">
+        <div class="move-inner reveal">
+          <p class="move-label">Sell</p>
+          <h3>Position it to stand apart.</h3>
+          <p class="move-copy">Pricing, presentation, marketing, and timing work together to create demand—and put you in the strongest position when it matters.</p>
+          <a class="blue-link" href="sms:+15129372696?&body=I%27m%20thinking%20about%20selling%20a%20property%20in%20Austin.">Talk about selling</a>
+          <div class="principles" aria-label="Selling guidance">
+            <div class="principle"><strong>Position it precisely.</strong><span>Present the property around the features buyers will value most.</span></div>
+            <div class="principle"><strong>Launch with purpose.</strong><span>Pricing, media and exposure designed to create attention at the right moment.</span></div>
+            <div class="principle"><strong>Negotiate the full deal.</strong><span>Price matters. So do terms, concessions, timing, repairs and certainty.</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="move" id="lease" data-chapter="lease">
+        <div class="move-inner reveal">
+          <p class="move-label">Lease</p>
+          <h3>Flexibility, with a plan.</h3>
+          <p class="move-copy">Whether you’re finding a place to live or leasing a property you own, make the timing, terms, and numbers work for what comes next.</p>
+          <a class="blue-link" href="sms:+15129372696?&body=I%27d%20like%20help%20with%20a%20lease%20in%20Austin.">Talk about leasing</a>
+          <div class="principles" aria-label="Leasing guidance">
+            <div class="principle"><strong>Get the timing right.</strong><span>Coordinate availability, notice periods, applications and move-in.</span></div>
+            <div class="principle"><strong>Know the real terms.</strong><span>Rent is only part of the commitment. Understand fees, restrictions and renewal terms.</span></div>
+            <div class="principle"><strong>Keep the next move open.</strong><span>Make today’s lease work with a future purchase, sale or relocation.</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="move" id="invest" data-chapter="invest">
+        <div class="move-inner reveal">
+          <p class="move-label">Invest</p>
+          <h3>Opportunity meets discipline.</h3>
+          <p class="move-copy">Evaluate the property, the numbers, the risk, and the exit before deciding what deserves your capital.</p>
+          <a class="blue-link" href="sms:+15129372696?&body=I%27m%20looking%20at%20an%20Austin%20real%20estate%20investment.">Talk about investing</a>
+          <div class="principles" aria-label="Investment guidance">
+            <div class="principle"><strong>Define the objective.</strong><span>Cash flow, appreciation, development, short-term use or long-term hold.</span></div>
+            <div class="principle"><strong>Underwrite the reality.</strong><span>Acquisition, financing, taxes, carrying costs, rent, vacancy and exit.</span></div>
+            <div class="principle"><strong>Stay disciplined.</strong><span>A compelling property isn’t automatically a compelling investment.</span></div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="austin">
+      <div class="shell austin-head reveal">
+        <h2>Austin isn’t one market.</h2>
+        <p class="austin-lead">Market headlines are context. Real estate decisions are local.</p>
+        <p class="austin-detail">Conditions can change from one neighborhood, street, or building to the next. The strategy should change with them.</p>
       </div>
 
-      <div class="financing-note">
-        Prefer to talk over the phone first? <a href="tel:+15129372696">Give me a call anytime</a>.
+      <div class="shell market-thought reveal" aria-label="Austin market perspective">
+        <div class="market-thought-kicker">Austin, block by block.</div>
+        <div class="market-thought-line">The closer you look, the more useful the market becomes.</div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FOOTER (standard template) -->
-  <footer>
-    <div class="footer-left">
-      <!-- Douglas Elliman logo -->
-      <img src="douglas-elliman.png" alt="Douglas Elliman Real Estate" class="footer-logo">
+    <section class="finance">
+      <div class="finance-inner reveal">
+        <p class="section-label">Financing</p>
+        <h2>Structure changes the deal.</h2>
+        <p>Rate, cash to close, concessions, and loan structure can matter just as much as price. Understand the complete cost before deciding what works.</p>
+        <a class="blue-link" href="/financing">Explore financing</a>
+      </div>
+    </section>
 
-      <div>
-        <div class="footer-platform">
-          ATXREALESTATE.COM is owned and operated by Michael Mechler, Broker Associate
+    <section class="contact" id="contact">
+      <div class="contact-inner reveal">
+        <div class="portrait">
+          <img src="headshot.png" alt="Michael Mechler, Broker Associate" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/mrmechler/atx-real-estate/main/headshot.png';" />
         </div>
-        <!-- desktop version of address -->
-        <div class="footer-text-bottom footer-text-desktop">
-          Douglas Elliman Real Estate · 1717 W 6th Street, Suite 190, Austin, TX 78703
+        <h2>Ready when you are.</h2>
+        <p class="contact-copy">Whether you know exactly what you want to do or you’re still weighing the options, start with a conversation.</p>
+        <div class="contact-actions">
+          <a class="pill" href="sms:+15129372696">Text Michael</a>
+          <a class="blue-link" href="tel:+15129372696">Call (512) YES-2-OWN</a>
         </div>
-        <!-- mobile stacked version of address -->
-        <div class="footer-text-bottom footer-text-mobile">
-          Douglas Elliman Real Estate<br>
-          1717 W 6th Street, Suite 190<br>
-          Austin, TX 78703
+        <div class="identity"><strong>Michael Mechler</strong> · Broker Associate · Douglas Elliman Real Estate</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <div class="footer-top">
+        <img class="de-logo" src="douglas-elliman.png" alt="Douglas Elliman Real Estate" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/mrmechler/atx-real-estate/main/douglas-elliman.png';" />
+        <div class="footer-id"><strong>Michael Mechler, Broker Associate</strong><br />Douglas Elliman Real Estate</div>
+        <div class="footer-legal">
+          <a href="/information-about-brokerage-services.pdf" target="_blank" rel="noopener">Information About Brokerage Services</a>
+          <a href="/consumer-protection-notice.pdf" target="_blank" rel="noopener">Consumer Protection Notice</a>
         </div>
       </div>
-    </div>
-
-    <div class="footer-links">
-      <a href="/information-about-brokerage-services.pdf" target="_blank" rel="noopener noreferrer">
-        Information About Brokerage Services
-      </a>
-      <a href="/consumer-protection-notice.pdf" target="_blank" rel="noopener noreferrer">
-        Consumer Protection Notice
-      </a>
+      <div class="footer-bottom">© 2026 Mechler Ventures. All rights reserved.</div>
     </div>
   </footer>
 
-  <!-- COMMERCIAL PROMO ROW -->
-  <div class="footer-commercial">
-    <div>
-      <div class="footer-commercial-text">Looking for commercial real estate?</div>
-      <a href="https://atxcre.com" target="_blank" rel="noopener noreferrer">
-        <img src="atxcre.png" alt="ATXCRE" class="footer-commercial-logo">
-      </a>
-    </div>
-  </div>
-
-  <div class="copyright">
-    © 2026 ATXREALESTATE.COM
-  </div>
-
   <script>
-    const header = document.getElementById('site-header');
-    const logoImg = document.querySelector('.logo-link img');
-    const topBanner = document.getElementById('top-banner');
+    const header = document.getElementById('siteHeader');
+    const logo = document.getElementById('headerLogo');
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const hero = document.getElementById('hero');
+    const heroVideo = document.getElementById('heroVideo');
+    const heroContent = document.getElementById('heroContent');
+    const raw = 'https://raw.githubusercontent.com/mrmechler/atx-real-estate/main/';
 
-    function updateHeaderOffset() {
-      if (!header) return;
-      const bannerVisible = topBanner && topBanner.style.display !== 'none';
-      const bannerHeight = bannerVisible ? topBanner.offsetHeight : 0;
-      header.style.top = bannerHeight + 'px';
+    function setLogo(file) {
+      if (logo.dataset.current === file) return;
+      logo.dataset.current = file;
+      logo.onerror = () => {
+        logo.onerror = null;
+        logo.src = raw + file;
+      };
+      logo.src = file;
     }
 
+    function updateHeader() {
+      const solid = window.scrollY > 36 || document.body.classList.contains('menu-open');
+      header.classList.toggle('solid', solid);
+      setLogo(solid ? logo.dataset.dark : logo.dataset.light);
+    }
+
+    let ticking = false;
     function onScroll() {
-      if (window.scrollY > 10) {
-        header.classList.add('header--solid');
-        if (logoImg) {
-          logoImg.src = 'blue-atx-logo.png';
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        updateHeader();
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          const y = window.scrollY;
+          const h = hero.offsetHeight || window.innerHeight;
+          const progress = Math.min(1, y / h);
+          heroVideo.style.transform = `scale(${1.015 + progress * .025})`;
+          heroContent.style.opacity = String(Math.max(0, 1 - progress * 1.35));
+          heroContent.style.transform = `translateY(${4 + progress * 4}vh)`;
         }
-      } else {
-        header.classList.remove('header--solid');
-        if (logoImg) {
-          logoImg.src = 'white-atx-logo.png';
-        }
-      }
-    }
-
-    document.addEventListener('scroll', onScroll);
-
-    window.addEventListener('load', () => {
-      updateHeaderOffset();
-      // no onScroll() here, so it starts in the transparent/gradient state
-    });
-
-    window.addEventListener('resize', updateHeaderOffset);
-
-    function dismissBanner() {
-      if (topBanner) {
-        topBanner.style.display = 'none';
-      }
-      updateHeaderOffset();
-      // header will still flip based on scroll when user moves
-    }
-
-    // Tabs logic
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabPanels = document.querySelectorAll('.tab-panel');
-
-    function activateTab(tabName) {
-      tabButtons.forEach(btn => {
-        btn.classList.toggle('active', btn.getAttribute('data-tab') === tabName);
-      });
-      tabPanels.forEach(panel => {
-        panel.classList.toggle('active', panel.getAttribute('data-panel') === tabName);
+        ticking = false;
       });
     }
+    window.addEventListener('scroll', onScroll, { passive: true });
 
-    tabButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const tabName = button.getAttribute('data-tab');
-        activateTab(tabName);
-      });
+    menuButton.addEventListener('click', () => {
+      const open = document.body.classList.toggle('menu-open');
+      menuButton.setAttribute('aria-expanded', String(open));
+      mobileMenu.setAttribute('aria-hidden', String(!open));
+      updateHeader();
     });
 
-    // Nav links that target specific tabs
-    const navLinks = document.querySelectorAll('nav.nav-links a[data-tab-target]');
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const tabName = link.getAttribute('data-tab-target');
-        const servicesSection = document.getElementById('services');
-        if (servicesSection) {
-          servicesSection.scrollIntoView({ behavior: 'smooth' });
+    mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      document.body.classList.remove('menu-open');
+      menuButton.setAttribute('aria-expanded', 'false');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      updateHeader();
+    }));
+
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          revealObserver.unobserve(entry.target);
         }
-        activateTab(tabName);
       });
+    }, { threshold: 0.14 });
+    reveals.forEach(el => revealObserver.observe(el));
+
+    hero.addEventListener('click', () => {
+      if (heroVideo && heroVideo.paused) heroVideo.play().catch(() => {});
     });
+
+    updateHeader();
   </script>
 </body>
 </html>
