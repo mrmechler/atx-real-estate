@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Let's Work Together | ATXRealEstate.com</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: #fff;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 24px;
+      color: #1d1d1f;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+                   "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-align: center;
+    }
+
+    main {
+      width: 100%;
+      max-width: 680px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(44px, 7vw, 72px);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 20px 0 0;
+      color: #6e6e73;
+      font-size: clamp(18px, 2.2vw, 22px);
+      line-height: 1.4;
+      letter-spacing: -0.02em;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 32px;
+      min-height: 50px;
+      padding: 0 26px;
+      border-radius: 999px;
+      background: #0071e3;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      transition: background .15s ease;
+    }
+
+    .button:hover {
+      background: #0077ed;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 24px;
+      }
+
+      h1 {
+        font-size: 48px;
+      }
+
+      p {
+        margin-top: 16px;
+        font-size: 19px;
+      }
+
+      .button {
+        margin-top: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Let’s work together.</h1>
+    <p>Ready to get started?</p>
+
+    <a
+      class="button"
+      href="sms:+15129372696?&body=Let%E2%80%99s%20work%20together"
+      id="sms-link"
+    >
+      Text Mechler
+    </a>
+  </main>
+
+  <script>
+    const link = document.getElementById("sms-link");
+    const phone = "+15129372696";
+    const body = encodeURIComponent("Let’s work together");
+
+    link.href = /iPad|iPhone|iPod/.test(navigator.userAgent)
+      ? `sms:${phone}?&body=${body}`
+      : `sms:${phone}?body=${body}`;
+  </script>
+</body>
+</html>
