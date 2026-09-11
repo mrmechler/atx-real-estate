@@ -4,12 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#ffffff" />
+
   <title>Let's Work Together | atxrealestate.com</title>
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
-    html, body {
+    html,
+    body {
       margin: 0;
       min-height: 100%;
       background: #fff;
@@ -23,8 +27,14 @@
       justify-content: center;
       padding: 32px 24px;
       color: #1d1d1f;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
-                   "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
       -webkit-font-smoothing: antialiased;
       text-align: center;
     }
@@ -64,7 +74,7 @@
       font-weight: 600;
       letter-spacing: -0.01em;
       text-decoration: none;
-      transition: background .15s ease;
+      transition: background 0.15s ease;
     }
 
     .button:hover {
@@ -91,9 +101,11 @@
     }
   </style>
 </head>
+
 <body>
   <main>
     <h1>Let’s work together.</h1>
+
     <p>Ready to get started?</p>
 
     <a
@@ -108,7 +120,9 @@
   <script>
     const link = document.getElementById("sms-link");
     const phone = "+15129372696";
-    const body = encodeURIComponent("Let’s work together");
+    const body = encodeURIComponent(
+      "Hey Mechler — I’d like to work together."
+    );
 
     link.href = /iPad|iPhone|iPod/.test(navigator.userAgent)
       ? `sms:${phone}?&body=${body}`
